@@ -1,0 +1,29 @@
+{
+  "name": "mean-auth-app",
+  "version": "1.0.0",
+  "description": "MEAN with Traversy media",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matsubrasil/meanTraversy.git"
+  },
+  "author": "Alexandre Seiji Matsushita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matsubrasil/meanTraversy/issues"
+  },
+  "homepage": "https://github.com/matsubrasil/meanTraversy#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^7.3.0",
+    "mongoose": "^4.9.2",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1"
+  }
+}
