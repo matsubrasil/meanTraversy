@@ -9,6 +9,7 @@ const configdb = require('./config/database');
 
 const userRouter = require('./routes/userRouter');
 
+mongoose.Promise = global.Promise;
 
 // connect to database
 mongoose.connect(configdb.database);
@@ -41,13 +42,19 @@ app.use( express.static(path.join(__dirname, 'public')) );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded(  {extended:true} ) );
 
+// passport middleware
+app.use( passport.initialize() );
+app.use( passport.session() );
+
+require('./config/passport')(passport);
+
 // routes
 app.use( '/users', userRouter );
 
 
 // index route
 app.get( '/', (req, res) => {
-    res.send('Invalid Endpoint');
+    res.send( 'Invalid Endpoint' );
 } );
 
 
@@ -55,7 +62,7 @@ app.get( '/', (req, res) => {
 // started server
 app.listen( port, (err, res)=>{
     if (err){
-        console.log('Error opn port ' + port );
+        console.log( 'Error to open port ' + port );
     }
-    console.log('Server running on port: ' + port );
+    console.log( 'Server running on port: ' + port );
 } );
