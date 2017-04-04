@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 import { ValidateService } from './../../services/validate.service';
+import { AuthService } from './../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
@@ -14,7 +17,9 @@ export class RegisterComponent implements OnInit {
   email: String;
   password: String;
 
-  constructor( private validateService: ValidateService,
+  constructor( private router: Router,
+               private validateService: ValidateService,
+               private authService: AuthService,
                private flashMessages: FlashMessagesService
               ) { }
 
@@ -43,7 +48,18 @@ export class RegisterComponent implements OnInit {
       return false;
     }
 
-
+    // register user
+    this.authService.registerUser(user)
+      .subscribe( data => {
+        //console.log(data);
+        if (data.success){
+          this.flashMessages.show( 'You are now registered and can log in', { cssClass: 'alert-success', timeout: 3000 });
+          this.router.navigate( ['/login'] );
+        } else {
+          this.flashMessages.show( 'Something went wrong', { cssClass: 'alert-danger', timeout: 3000 });
+          this.router.navigate( ['/register'] );
+        }
+      });
 
   }
 }
